@@ -13,10 +13,13 @@ namespace OnlineShop.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         // GET: Admin/User
-        public ActionResult Index(int page=1, int pageSize =2)
+        //tên của tham số phải giống name của phần tử form
+        public ActionResult Index(string searchString, int page=1, int pageSize =2)
         {
             var dao = new UserDao();
-            var model = dao.ListAllPaging(page, pageSize);
+            var model = dao.ListAllPaging(searchString,page, pageSize);
+            //truyền giá trị từ controller cho view
+            ViewBag.SearchString = searchString;
             return View(model);
         }
 

@@ -10,6 +10,9 @@ namespace Model.Dao
 {
     public class UserDao
     {
+        /// <summary>
+        ///Dùng Linq để thao tác với db
+        /// </summary>
         OnlineShopDbContext db = null;
 
         public UserDao()
@@ -78,9 +81,15 @@ namespace Model.Dao
             }
             
         }
-        public IEnumerable<User> ListAllPaging(int page, int pageSize)
+        public IEnumerable<User> ListAllPaging(string searchString, int page, int pageSize)
         {
-            return db.Users.OrderByDescending(x=>x.CreateDate).ToPagedList(page,pageSize);
+            IQueryable<User> model = db.Users;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                //Contains là tìm kiếm gần đúng, câu lệnh này sẽ sinh ra câu lệnh select
+                model = model.Where(x => x.UserName.Contains(searchString) || x.Name.Contains(searchString));
+            }
+            return model.OrderByDescending(x => x.CreateDate).ToPagedList(page,pageSize);
         }
 
         public bool Delete(int id)

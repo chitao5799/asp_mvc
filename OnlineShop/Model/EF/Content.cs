@@ -25,6 +25,7 @@ namespace Model.EF
 
         public long? CategoryID { get; set; }
 
+        //[AllowHtml]
         [Column(TypeName = "ntext")]
         public string Detail { get; set; }
 
