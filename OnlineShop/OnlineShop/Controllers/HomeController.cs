@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Dao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,21 +11,32 @@ namespace OnlineShop.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.MainSlides = new SlideDao().ListAll();
+            var productDao = new ProductDao();
+            ViewBag.NewProducts = productDao.ListNewProduct(4);
+            ViewBag.ListFeatureProducts = productDao.ListFeatureProduct(4);
             return View();
         }
 
-        public ActionResult About()
+        [ChildActionOnly]
+        public ActionResult MainMenu()//tên hàm giống tên của PartialView
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var model = new MenuDao().ListByGroupId(1);
+            return PartialView(model);
         }
 
-        public ActionResult Contact()
+        [ChildActionOnly]
+        public ActionResult TopMenuRight()
         {
-            ViewBag.Message = "Your contact page.";
+            var model = new MenuDao().ListByGroupId(2);
+            return PartialView(model);
+        }
 
-            return View();
+        [ChildActionOnly]
+        public ActionResult Footer()
+        {
+            var model = new FooterDao().GetFooter();
+            return PartialView(model);
         }
     }
 }

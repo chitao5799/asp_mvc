@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,6 +84,8 @@ namespace Model.Dao
         }
         public IEnumerable<User> ListAllPaging(string searchString, int page, int pageSize)
         {
+            //var _pageSize = Int32.Parse(ConfigurationManager.AppSettings["pageSize"].ToString()); //cách lấy ở file Web.config trong thẻ <appSettings>
+
             IQueryable<User> model = db.Users;
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -107,6 +110,14 @@ namespace Model.Dao
                 return false;
             }
 
+        }
+
+        public bool ChangeStatus(long id)
+        {
+            var user = db.Users.Find(id);
+            user.Status = !user.Status;
+            db.SaveChanges();
+            return !user.Status;
         }
     }
 }

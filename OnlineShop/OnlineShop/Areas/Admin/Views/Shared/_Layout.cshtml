@@ -14,6 +14,7 @@
     <title>Dashboard - SB Admin</title>
     @*<link href="~/Assets/admin/css/simple_datatable_style.css" rel="stylesheet" />*@
     <link href="~/Assets/admin/css/styles.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/my_styles.css" rel="stylesheet" />
     @*<link href="~/Assets/admin/css/bootstrap.min.css" rel="stylesheet" />*@
     @*<link href="~/Assets/admin/css/bootstrap-grid.min.css" rel="stylesheet" />*@
     @*<link href="~/Assets/admin/css/bs3.3.7.min.css" rel="stylesheet" />*@
@@ -59,6 +60,13 @@
                             <h1 class="page-header">@RenderSection("header", required: true)</h1>
                         </div>
                     </div>
+                    @if (TempData["AlertMessage"] != null)
+                    {
+                    <div id="AlertBox" class="alert @TempData["AlertType"]  hide">
+                        @TempData["AlertMessage"]
+                    </div>
+                    }
+
                     @RenderBody()
                 </div>
             </main>
@@ -88,7 +96,13 @@
         <script src="~/Assets/admin/js/datatables-simple-demo.js"></script>*@
     <script src="~/Areas/Admin/Plugins/ckfinder/ckfinder.js"></script>
     <script src="~/Areas/Admin/Plugins/ckeditor/ckeditor.js"></script>
+
     @RenderSection("script", required: false)
+
+    <script type="text/javascript">
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(2000).slideUp(500);//sau 2s sẽ ẩn element trong thời gian 500 ms với hàm slideUp()
+    </script>
 </body>
 </html>
 

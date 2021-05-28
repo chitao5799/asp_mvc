@@ -24,6 +24,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]//vì có 1 trường có giá trị html nên có cái này cho ko báo lỗi.
         public ActionResult Create(Content model)
         {
             if (ModelState.IsValid)
