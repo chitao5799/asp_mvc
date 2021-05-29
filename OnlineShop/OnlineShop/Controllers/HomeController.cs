@@ -22,7 +22,7 @@ namespace OnlineShop.Controllers
         public ActionResult MainMenu()//tên hàm giống tên của PartialView
         {
             var model = new MenuDao().ListByGroupId(1);
-            return PartialView(model);
+            return PartialView(model);//model truyền vào chính là biến Model ở file .cshtml
         }
 
         [ChildActionOnly]

@@ -39,7 +39,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var dao = new CategoryDao();
             ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name", selectedId);
-
+            // bên file .cshtml chỗ model.CategoryID sẽ tự động nhận được ViewBag.CategoryID vì tên biến giống nhau là CategoryID
         }
 
         [HttpGet]
