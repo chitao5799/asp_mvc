@@ -36,5 +36,16 @@ namespace Model.Dao
         {
             return db.Products.Find(id);
         }
+
+        /// <summary>
+        /// get list product by category id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public List<Product> ListByCategoryID(long categoryId,ref int totalRecord, int pageIndex=1,int pageSize=2)
+        {
+            totalRecord = db.Products.Where(x => x.CategoryID == categoryId).Count();
+            return db.Products.Where(x => x.CategoryID == categoryId).OrderByDescending(x => x.CreateDate).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
+        }
     }
 }

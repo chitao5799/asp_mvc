@@ -19,7 +19,7 @@ namespace OnlineShop
             // vd:  http://localhost:57636/san-pham/dfgdfg-4 sẽ xử lý ở ProductController, phương thức Category
             routes.MapRoute(
                 name: "Product Category", //name tùy ý đặt, nhưng ko được trùng nhau
-                //{metatitle} và {cateId} vì nằm trong { }, sẽ là 2 biến truyền vào hàm Category và sẽ có giá trị bất kỳ
+                                          //{metatitle} và {cateId} vì nằm trong { }, sẽ là 2 biến truyền vào hàm Category và sẽ có giá trị bất kỳ
                 url: "san-pham/{metatitle}-{cateId}",//trong ProductController, phương thức Category,tên tham số phải là cateId
                 defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
                 namespaces: new[] { "OnlineShop.Controllers" }
@@ -39,12 +39,26 @@ namespace OnlineShop
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
 
+            routes.MapRoute(
+                name: "Add Cart",
+                url: "them-gio-hang",
+                defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
+                namespaces: new[] { "OnlineShop.Controllers" }
+            );
+
+            routes.MapRoute(
+               name: "Cart",
+               url: "gio-hang",
+               defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
             //Default phải đặt cuối cùng
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new [] { "OnlineShop.Controllers" } //tránh trùng với Home của Admin
+                namespaces: new[] { "OnlineShop.Controllers" } //tránh trùng với Home của Admin
             );
         }
     }

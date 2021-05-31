@@ -147,11 +147,13 @@
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\UserLogin.cs" />
   </ItemGroup>
@@ -1289,6 +1291,10 @@
     <Content Include="Assets\Client\css\slider.css" />
     <Content Include="Assets\Client\css\style.css" />
     <Content Include="Assets\Client\delivery.html" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Assets\Client\images\about_img.jpg" />
     <Content Include="Assets\Client\images\arrow-next.png" />
     <Content Include="Assets\Client\images\arrow-prev.png" />
@@ -1341,6 +1347,7 @@
     <Content Include="Assets\Client\images\wishlist.png" />
     <Content Include="Assets\Client\index.html" />
     <Content Include="Assets\Client\js\bootstrap3.min.js" />
+    <Content Include="Assets\Client\js\Controller\CartController.js" />
     <Content Include="Assets\Client\js\easing.js" />
     <Content Include="Assets\Client\js\easyResponsiveTabs.js" />
     <Content Include="Assets\Client\js\jquery-1.7.2.min.js" />
@@ -1408,6 +1415,39 @@
     <Content Include="Areas\Admin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Assets\Client\font\Amble-Regular-webfont.ttf" />
     <Content Include="Assets\Client\images\Thumbs.db" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Assets\Client\font-awesome-4.7.0\scss\_variables.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1439,6 +1479,8 @@
     <Content Include="Views\Product\Category.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\CartHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Base\" />
