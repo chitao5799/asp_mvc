@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model.ViewModel;
 
 namespace Model.Dao
 {
@@ -42,10 +43,31 @@ namespace Model.Dao
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        public List<Product> ListByCategoryID(long categoryId,ref int totalRecord, int pageIndex=1,int pageSize=2)
+        public List<Product> ListByCategoryID(long categoryId, ref int totalRecord, int pageIndex = 1, int pageSize = 2)
+        //public List<ProductViewModel> ListByCategoryID(long categoryId, ref int totalRecord, int pageIndex = 1, int pageSize = 2)
         {
             totalRecord = db.Products.Where(x => x.CategoryID == categoryId).Count();
-            return db.Products.Where(x => x.CategoryID == categoryId).OrderByDescending(x => x.CreateDate).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
+            return db.Products.Where(x => x.CategoryID == categoryId).OrderByDescending(x => x.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            //cách 2 dùng cách join bảng - nhưng chưa phân trang được
+            //totalRecord = db.Products.Where(x => x.CategoryID == categoryId).Count();
+            //var model = from a in db.Products
+            //            join b in db.ProductCategories
+            //            on a.CategoryID equals b.ID
+            //            where a.CategoryID == categoryId
+            //            select new ProductViewModel()
+            //            {
+            //                CateMetaTitle = b.MataTitle,
+            //                CateName = b.Name,
+            //                CreatedDate = a.CreateDate,
+            //                ID = a.ID,
+            //                Images = a.Image,
+            //                Name = a.Name,
+            //                MetaTitle = a.MataTitle,
+            //                Price = a.Price
+            //            };
+            //model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            //return model.ToList();
         }
     }
 }

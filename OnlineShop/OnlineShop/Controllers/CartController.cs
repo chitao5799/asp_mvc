@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Model.EF;
+using Common;
 
 namespace OnlineShop.Controllers
 {
@@ -18,26 +20,26 @@ namespace OnlineShop.Controllers
         {
             var cart = Session[CartSession];
             var list = new List<CartItem>();
-            if(cart != null)
+            if (cart != null)
             {
                 list = (List<CartItem>)cart;
             }
             return View(list);
         }
 
-        public ActionResult AddItem(long productId,int quantity)
+        public ActionResult AddItem(long productId, int quantity)
         {
             var product = new ProductDao().ViewDetail(productId);
             var cart = Session[CartSession];
-            if(cart!=null)
+            if (cart != null)
             {
                 var list = (List<CartItem>)cart;
 
-                if(list.Exists(x => x.Product.ID==productId))
+                if (list.Exists(x => x.Product.ID == productId))
                 {
-                    foreach(var item in list)
+                    foreach (var item in list)
                     {
-                        if(item.Product.ID == productId)
+                        if (item.Product.ID == productId)
                         {
                             item.Quantity += quantity;
                         }
@@ -46,7 +48,7 @@ namespace OnlineShop.Controllers
                 else
                 {
                     var item = new CartItem();
-                    item.Product= product;
+                    item.Product = product;
                     item.Quantity = quantity;
                     list.Add(item);
                 }
@@ -71,11 +73,11 @@ namespace OnlineShop.Controllers
         {
             var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
             var sessionCart = (List<CartItem>)Session[CartSession];
-             
-            foreach(var item in sessionCart)
+
+            foreach (var item in sessionCart)
             {
                 var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
-                if(jsonItem != null)
+                if (jsonItem != null)
                 {
                     item.Quantity = jsonItem.Quantity;
                 }
@@ -83,8 +85,98 @@ namespace OnlineShop.Controllers
             Session[CartSession] = sessionCart;
             return Json(new
             {
-                status= true
+                status = true
             });
+        }
+
+        public JsonResult DeleteAll()
+        {
+            Session[CartSession] = null;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public JsonResult Delete(long id)
+        {
+            var sessionCart = (List<CartItem>)Session[CartSession];
+            sessionCart.RemoveAll(x => x.Product.ID == id);
+
+            Session[CartSession] = sessionCart;
+
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult Payment()
+        {
+            var cart = Session[CartSession];
+            var list = new List<CartItem>();
+            if (cart != null)
+            {
+                list = (List<CartItem>)cart;
+            }
+            return View(list);
+        }
+
+        [HttpPost]
+        public ActionResult Payment(string shipName, string mobile, string address, string email)
+        {
+            var order = new Order();
+            order.CreatedDate = DateTime.Now;
+            order.ShipAddress = address;
+            order.ShipMobile = mobile;
+            order.ShipName = shipName;
+            order.ShipEmail = email;
+            decimal total = 0;
+            try
+            {
+                var id = new OrderDao().Insert(order);
+                var detailDao = new OrderDetailDao();
+                var cart = (List<CartItem>)Session[CartSession];
+
+                foreach (var item in cart)
+                {
+                    var orderDetail = new OrderDetail();
+                    orderDetail.productID = item.Product.ID;
+                    orderDetail.OrderID = id;
+                    orderDetail.Price = item.Product.Price;//bảng OrderDetail lưu cột price vì lúc mua: price có thể khác vd như sp đang được giảm giá
+                    orderDetail.Quantity = item.Quantity;
+
+                    detailDao.Insert(orderDetail);
+                    total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                }
+
+                Session[CartSession] = null;
+
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/template/neworder.html"));
+
+                content = content.Replace("{{CustomerName}}", shipName);
+                content = content.Replace("{{Phone}}", mobile);
+                content = content.Replace("{{Email}}", email);
+                content = content.Replace("{{Address}}", address);
+                content = content.Replace("{{Total}}", total.ToString("N0"));
+
+                var toEmail = System.Configuration.ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+
+                new MailHelper().SendMail(toEmail,"Đơn hàng mới từ OnlineShop", content);//gửi mail đến người quản trị
+                new MailHelper().SendMail(email, "Đơn hàng mới từ OnlineShop", content);// gửi mail đến khách hàng mua hàng này
+
+                return Redirect("/hoan-thanh");
+            }
+            catch (Exception) {
+                //return Redirect("/loi-thanh-toan");
+                throw;
+            }
+
+        }
+
+        public ActionResult Success()
+        {
+            return View();
         }
     }
 }

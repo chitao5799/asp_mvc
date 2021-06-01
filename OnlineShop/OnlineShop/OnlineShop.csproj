@@ -148,6 +148,7 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1348,6 +1349,7 @@
     <Content Include="Assets\Client\index.html" />
     <Content Include="Assets\Client\js\bootstrap3.min.js" />
     <Content Include="Assets\Client\js\Controller\CartController.js" />
+    <Content Include="Assets\Client\js\Controller\ContactController.js" />
     <Content Include="Assets\Client\js\easing.js" />
     <Content Include="Assets\Client\js\easyResponsiveTabs.js" />
     <Content Include="Assets\Client\js\jquery-1.7.2.min.js" />
@@ -1360,6 +1362,7 @@
     <Content Include="Assets\Client\js\startstop-slider.js" />
     <Content Include="Assets\Client\news.html" />
     <Content Include="Assets\Client\preview.html" />
+    <Content Include="Assets\Client\template\neworder.html" />
     <Content Include="Assets\Client\w3layouts-License.txt" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Data\images\sim.jpg" />
@@ -1481,6 +1484,9 @@
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\CartHeader.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Base\" />
@@ -1497,6 +1503,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d9055940-889a-4e66-b93a-cda8951edca8}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{f88b87df-b8b2-40f9-bc7e-a1afdfe13f56}</Project>
       <Name>Model</Name>

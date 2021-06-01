@@ -53,6 +53,27 @@ namespace OnlineShop
                namespaces: new[] { "OnlineShop.Controllers" }
            );
 
+            routes.MapRoute(
+               name: "Payment",
+               url: "thanh-toan",
+               defaults: new { controller = "Cart", action = "Payment", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
+            routes.MapRoute(
+               name: "Payment Success",
+               url: "hoan-thanh",
+               defaults: new { controller = "Cart", action = "Success", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
+            routes.MapRoute(
+               name: "Contact",
+               url: "lien-he",
+               defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
             //Default phải đặt cuối cùng
             routes.MapRoute(
                 name: "Default",
