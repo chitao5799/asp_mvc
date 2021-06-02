@@ -29,6 +29,21 @@ namespace Model.Dao
             return entity.ID;
         }
 
+        public long InsertForFacebook(User entity)
+        {
+            var user = db.Users.SingleOrDefault(x => x.UserName == entity.UserName);
+            if (user == null) 
+            {
+                    db.Users.Add(entity);
+                    db.SaveChanges();
+                    return entity.ID;
+            }
+            else
+            {
+                return user.ID;
+            }
+        }
+
         public bool Update(User entity)
         {
             try
@@ -59,6 +74,12 @@ namespace Model.Dao
         {
             return db.Users.SingleOrDefault(x=>x.UserName==userName);
         }
+
+        public bool CheckExistEmail(string email)
+        {
+            return db.Users.Count(x => x.Email == email) >0;
+        }
+
         public int Login(string userName, string password)
         {
             var result = db.Users.SingleOrDefault(x => x.UserName == userName);

@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Data.Entity;
@@ -181,5 +181,9 @@ namespace Model.EF
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
         }
+
+        /*OnlineShop.Models.LoginModel là model tự tạo, khi add vào view thì tự render ra cái này, cái lệnh này xóa đi.
+         * public System.Data.Entity.DbSet<OnlineShop.Models.LoginModel> LoginModels { get; set; }
+         */
     }
 }

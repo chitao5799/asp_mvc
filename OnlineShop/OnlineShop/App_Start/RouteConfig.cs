@@ -13,6 +13,10 @@ namespace OnlineShop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // BotDetect requests must not be routed
+            routes.IgnoreRoute("{*botdetect}",
+              new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
+
             // tự định nghĩa route 
             //Bản chất của route này là: mapping giữa url trên trình duyệt và code xử lý cho url sẽ là method(action) của controller
             // url đúng sẽ có dạng: http://localhost:57636/san-pham/<tên-bất-kỳ>-<id-bất-kỳ>
@@ -71,6 +75,20 @@ namespace OnlineShop
                name: "Contact",
                url: "lien-he",
                defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
+            routes.MapRoute(
+               name: "User Register",
+               url: "dang-ky",
+               defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
+            routes.MapRoute(
+               name: "User Login",
+               url: "dang-nhap",
+               defaults: new { controller = "User", action = "Login", id = UrlParameter.Optional },
                namespaces: new[] { "OnlineShop.Controllers" }
            );
 
