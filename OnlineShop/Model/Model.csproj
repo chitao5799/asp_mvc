@@ -97,5 +97,11 @@
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StaticResource\StaticResource.csproj">
+      <Project>{3d910981-cbcf-44af-9dde-fdfd6b96d96e}</Project>
+      <Name>StaticResource</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

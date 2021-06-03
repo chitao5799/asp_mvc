@@ -21,6 +21,7 @@ namespace OnlineShop.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache( Duration =60*60)]//vd cache //cache 1 tiếng // chỉ run hàm này 1 lần trong thời gian cache
         public ActionResult MainMenu()//tên hàm giống tên của PartialView
         {
             var model = new MenuDao().ListByGroupId(1);

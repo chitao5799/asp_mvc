@@ -14,14 +14,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="~/Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Assets/Client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Assets/Client/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/jquery-ui.css" rel="stylesheet" />
     @*icon đăng nhập bằng facebook,...... *@
     <link href="~/Assets/Client/css/BootstrapScocial.css" rel="stylesheet" />
     @*<script type="text/javascript" src="~/Assets/Client/js/jquery-1.7.2.min.js"></script>*@
     <script src="~/Assets/Client/js/jquery-3.3.1.js"></script>
+    
     <script src="~/Assets/Client/js/bootstrap3.min.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/move-top.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/easing.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/startstop-slider.js"></script>
+    <script src="~/Assets/Client/js/jquery-ui.js"></script>
 </head>
 <body>
     <div class="wrap">
@@ -75,13 +78,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     @{Html.RenderAction("MainMenu", "Home");}
                 </div>
                 <div class="search_box">
-                    <form>
-                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                    <form action="~/Product/Search" method="get">
+                        <input type="text" name="keywords" id="txtSearch" placeholder="search"><input type="submit" value="">
                     </form>
                 </div>
                 <div class="clear"></div>
             </div>
-            @RenderSection("submenu_slide",false)
+            @RenderSection("submenu_slide", false)
         </div>
         <div class="main">
             @RenderBody()
@@ -102,6 +105,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
     </script>
     <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    <script src="~/Assets/Client/js/Controller/BaseController.js"></script>
     @RenderSection("jsFooter", required: false)
 </body>
 </html>

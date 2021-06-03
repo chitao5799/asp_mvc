@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D9055940-889A-4E66-B93A-CDA8951EDCA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticResource", "StaticResource\StaticResource.csproj", "{3D910981-CBCF-44AF-9DDE-FDFD6B96D96E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D9055940-889A-4E66-B93A-CDA8951EDCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9055940-889A-4E66-B93A-CDA8951EDCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9055940-889A-4E66-B93A-CDA8951EDCA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D910981-CBCF-44AF-9DDE-FDFD6B96D96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D910981-CBCF-44AF-9DDE-FDFD6B96D96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D910981-CBCF-44AF-9DDE-FDFD6B96D96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D910981-CBCF-44AF-9DDE-FDFD6B96D96E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

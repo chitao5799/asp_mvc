@@ -69,5 +69,16 @@ namespace Model.Dao
             //model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             //return model.ToList();
         }
+
+        public List<string> ListNam(string keyword)
+        {
+            return db.Products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
+        }
+
+        public List<Product> Search(string keyword, ref int totalRecord, int pageIndex = 1, int pageSize = 2)
+        {
+            totalRecord = db.Products.Where(x => x.Name.Contains(keyword)).Count();
+            return db.Products.Where(x => x.Name.Contains(keyword)).OrderByDescending(x => x.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
     }
 }

@@ -38,6 +38,12 @@ namespace OnlineShop.Models
 
         [Display(Name = "Điện thoại")]
         public string Phone { get; set; }
+
+        [Display(Name="Tình/Thành phố")]
+        public int ProvinceID { get; set; }
+
+        [Display(Name = "Quận/Huyện")]
+        public int DistrictID { get; set; }
     }
 
 }

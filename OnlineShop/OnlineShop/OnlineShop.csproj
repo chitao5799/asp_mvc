@@ -168,7 +168,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\DistrictModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ProvinceModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\UserLogin.cs" />
@@ -1305,8 +1307,10 @@
     <Content Include="Assets\Client\css\BootstrapScocial.css" />
     <Content Include="Assets\Client\css\easy-responsive-tabs.css" />
     <Content Include="Assets\Client\css\global.css" />
+    <Content Include="Assets\Client\css\jquery-ui.css" />
     <Content Include="Assets\Client\css\slider.css" />
     <Content Include="Assets\Client\css\style.css" />
+    <Content Include="Assets\Client\data\Provinces_Data.xml" />
     <Content Include="Assets\Client\delivery.html" />
     <Content Include="Assets\Client\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Assets\Client\font-awesome-4.7.0\css\font-awesome.min.css" />
@@ -1365,12 +1369,15 @@
     <Content Include="Assets\Client\images\wishlist.png" />
     <Content Include="Assets\Client\index.html" />
     <Content Include="Assets\Client\js\bootstrap3.min.js" />
+    <Content Include="Assets\Client\js\Controller\BaseController.js" />
     <Content Include="Assets\Client\js\Controller\CartController.js" />
     <Content Include="Assets\Client\js\Controller\ContactController.js" />
+    <Content Include="Assets\Client\js\Controller\UserController.js" />
     <Content Include="Assets\Client\js\easing.js" />
     <Content Include="Assets\Client\js\easyResponsiveTabs.js" />
     <Content Include="Assets\Client\js\jquery-1.7.2.min.js" />
     <Content Include="Assets\Client\js\jquery-3.3.1.js" />
+    <Content Include="Assets\Client\js\jquery-ui.js" />
     <Content Include="Assets\Client\js\jquery.accordion.js" />
     <Content Include="Assets\Client\js\jquery.easing.js" />
     <Content Include="Assets\Client\js\move-top.js" />
@@ -1506,6 +1513,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Base\" />
@@ -1529,6 +1537,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{f88b87df-b8b2-40f9-bc7e-a1afdfe13f56}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StaticResource\StaticResource.csproj">
+      <Project>{3d910981-cbcf-44af-9dde-fdfd6b96d96e}</Project>
+      <Name>StaticResource</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

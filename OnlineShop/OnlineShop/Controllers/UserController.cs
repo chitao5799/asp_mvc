@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using OnlineShop.Common;
 using Facebook;
 using System.Configuration;
+using System.Xml.Linq;
 
 namespace OnlineShop.Controllers
 {
@@ -63,6 +64,10 @@ namespace OnlineShop.Controllers
                     user.Phone = model.Phone;
                     user.Email = model.Email;
                     user.Address = model.Address;
+                    if (model.ProvinceID > 0)
+                        user.ProvinceID = model.ProvinceID;
+                    if (model.DistrictID > 0)
+                        user.DistrictID = model.DistrictID;
                     user.CreateDate = DateTime.Now;
                     user.Status = true;//nâng cao hơn có thể cho = false, rồi gửi mail cho user để kích hoạt
                     var result=dao.Insert(user);
@@ -191,6 +196,52 @@ namespace OnlineShop.Controllers
                
             }
             return RedirectToAction("Index", "Home", null);
+        }
+
+        public JsonResult LoadProvince()
+        {
+            var xmlDoc = XDocument.Load(Server.MapPath(@"~\Assets\Client\data\Provinces_Data.xml"));
+
+            var xElements = xmlDoc.Element("Root").Elements("Item").Where(x => x.Attribute("type").Value == "province");
+            var list = new List<ProvinceModel>();
+            ProvinceModel province = null;
+            foreach (var item in xElements)
+            {
+                province = new ProvinceModel();
+                province.ID = int.Parse(item.Attribute("id").Value);
+                province.Name = item.Attribute("value").Value;
+                list.Add(province);
+            }
+
+            return Json(new
+            {
+                data = list,
+                status=true
+            });
+        }
+
+        public JsonResult LoadDistrict(int provinceID)
+        {
+            var xmlDoc = XDocument.Load(Server.MapPath(@"~\Assets\Client\data\Provinces_Data.xml"));
+
+            var xElement = xmlDoc.Element("Root").Elements("Item")
+                .Single(x => x.Attribute("type").Value == "province" && int.Parse(x.Attribute("id").Value)==provinceID);
+            var list = new List<DistrictModel>();
+            DistrictModel district = null;
+            foreach (var item in xElement.Elements("Item").Where(x => x.Attribute("type").Value == "district"))
+            {
+                district = new DistrictModel();
+                district.ID = int.Parse(item.Attribute("id").Value);
+                district.Name = item.Attribute("value").Value;
+                district.ProvinceID = int.Parse(xElement.Attribute("id").Value);
+                list.Add(district);
+            }
+
+            return Json(new
+            {
+                data = list,
+                status = true
+            });
         }
     }
 }
