@@ -37,9 +37,9 @@
         [Display(Name = "Điện thoại")]
         public string Phone { get; set; }
 
-        public int ProvinceID { get; set; }
+        public int? ProvinceID { get; set; }
 
-        public int DistrictID { get; set; }
+        public int? DistrictID { get; set; }
 
         public DateTime? CreateDate { get; set; }
 

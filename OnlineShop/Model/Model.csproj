@@ -98,6 +98,10 @@
     <Content Include="Content\PagedList.css" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d9055940-889a-4e66-b93a-cda8951edca8}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StaticResource\StaticResource.csproj">
       <Project>{3d910981-cbcf-44af-9dde-fdfd6b96d96e}</Project>
       <Name>StaticResource</Name>

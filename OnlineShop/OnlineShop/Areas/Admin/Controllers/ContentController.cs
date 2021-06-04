@@ -5,17 +5,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.EF;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
     public class ContentController : BaseController
     {
         // GET: Admin/Content
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 2)
         {
-            return View();
+            var dao = new ContentDao();
+            var model = dao.ListAllPaging(searchString, page, pageSize);
+            //truyền giá trị từ controller cho view
+            ViewBag.SearchString = searchString;
+            return View(model);
         }
-        
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -29,7 +34,12 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                var session =(UserLogin)Session[CommonConstants.USER_SESSION];
+                model.CreateBy = session.UserName;
+                var culture =Session[CommonConstants.CurrentCulture];
+                model.Language = culture.ToString();
+                new ContentDao().Create(model);
+                return RedirectToAction("Index");
             }
             SetViewBag();
             return View();
@@ -49,18 +59,21 @@ namespace OnlineShop.Areas.Admin.Controllers
             var content = dao.GetByID(id);
 
             SetViewBag(content.CategoryID);
-            return View();
+            return View(content);
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(Content model)
         {
             if (ModelState.IsValid)
             {
-
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                model.ModifiedBy = session.UserName;
+                new ContentDao().Edit(model);
             }
             SetViewBag();
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

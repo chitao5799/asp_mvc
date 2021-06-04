@@ -92,6 +92,26 @@ namespace OnlineShop
                namespaces: new[] { "OnlineShop.Controllers" }
            );
 
+            routes.MapRoute(
+               name: "Content List",
+               url: "tin-tuc",
+               defaults: new { controller = "Content", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "OnlineShop.Controllers" }
+           );
+
+            routes.MapRoute(
+                name: "Content Detail",
+                url: "tin-tuc/{metatitle}-{contentId}",
+                defaults: new { controller = "Content", action = "Detail", id = UrlParameter.Optional },
+                namespaces: new[] { "OnlineShop.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Tags",
+                url: "tag/{tagID}",
+                defaults: new { controller = "Content", action = "Tag", id = UrlParameter.Optional },
+                namespaces: new[] { "OnlineShop.Controllers" }
+            );
             //Default phải đặt cuối cùng
             routes.MapRoute(
                 name: "Default",
