@@ -14,6 +14,7 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         // GET: Admin/User
         //tên của tham số phải giống name của phần tử form
+        [HashCredential(RoleID = "VIEW_USER")]
         public ActionResult Index(string searchString, int page=1, int pageSize =2)
         {
             var dao = new UserDao();
@@ -24,12 +25,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [HashCredential(RoleID = "ADD_USER")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [HashCredential(RoleID = "ADD_USER")]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
@@ -59,6 +62,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [HashCredential(RoleID = "EDIT_USER")]
         public ActionResult Edit(int id)
         {
             var user = new UserDao().ViewDetail(id);
@@ -66,6 +70,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HashCredential(RoleID = "EDIT_USER")]
         public ActionResult Edit(User user)
         {
             var dao = new UserDao();
@@ -85,6 +90,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [HashCredential(RoleID = "DELETE_USER")]
         public ActionResult Delete(int id)
         {
             new UserDao().Delete(id);
@@ -92,6 +98,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HashCredential(RoleID = "EDIT_USER")]
         public JsonResult ChangeStatus(long userId)
         {
             var result = new UserDao().ChangeStatus(userId);

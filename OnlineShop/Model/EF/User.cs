@@ -22,6 +22,9 @@
         [Required(ErrorMessage = "Mật khẩu không được để trống")]
         public string Password { get; set; }
 
+        [StringLength(20)]
+        public string GroupID { get; set; }
+
         [StringLength(50)]
         [Display(Name = "Họ tên")]
         public string Name { get; set; }

@@ -8,23 +8,30 @@ namespace OnlineShop
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //sử dụng bundle để tối ưu css và js cho việc load trang nhanh hơn
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                        "~/Assets/Client/js/jquery-3.3.1.js",
+                        "~/Assets/Client/js/bootstrap3.min.js",
+                        "~/Assets/Client/js/move-top.js",
+                        "~/Assets/Client/js/easing.js",
+                        "~/Assets/Client/js/startstop-slider.js",
+                        "~/Assets/Client/js/jquery-ui.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jsController").Include(
+                      "~/Assets/Client/js/Controller/BaseController.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            //bundles.Add(new StyleBundle("~/bundles/css").Include(
+            //          "~/Assets/Client/css/bootstrap3.3.7.min.css",
+            //          "~/Assets/Client/css/style.css",
+            //          "~/Assets/Client/css/slider.css",
+            //          "~/Assets/Client/font-awesome-4.7.0/css/font-awesome.min.css",
+            //          "~/Assets/Client/css/jquery-ui.css",
+            //          "~/Assets/Client/css/BootstrapScocial.css")
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Assets/Client/css/*.css",
+                      new CssRewriteUrlTransform()));//cách này để ngăn lỗi ko load được 1 số icon (error 404)
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model.EF;
 using PagedList;
+using Common;
 
 namespace Model.Dao
 {
@@ -80,7 +81,25 @@ namespace Model.Dao
             return db.Users.Count(x => x.Email == email) >0;
         }
 
-        public int Login(string userName, string password)
+        public List<string> GetListCredential(string userName)
+        {
+            var user = db.Users.Single(x => x.UserName == userName);
+            var data = (from a in db.Credentials
+                       join b in db.UserGroups on a.UserGroupID equals b.ID
+                       join c in db.Roles on a.RoleID equals c.ID
+                       where b.ID==user.GroupID
+                       select new
+                     {
+                         RoleID=a.RoleID,
+                         UserGroupID=a.UserGroupID
+                     }).AsEnumerable().Select(x=> new Credential() {
+                         RoleID=x.RoleID,
+                         UserGroupID=x.UserGroupID
+                     });
+            return data.Select(x=>x.RoleID).ToList();
+        }
+
+        public int Login(string userName, string password, bool isLoginAdmin=false)
         {
             var result = db.Users.SingleOrDefault(x => x.UserName == userName);
             if (result ==null)
@@ -89,6 +108,13 @@ namespace Model.Dao
             }
             else
             {
+                if (isLoginAdmin == true)
+                {
+                    if (!(result.GroupID == CommonContrants.ADMIN_GROUP || result.GroupID == CommonContrants.MOD_GROUP))
+                    {
+                        return -3;
+                    }
+                }
                 if (result.Status == false)
                 {
                     return -1; //tài khoản bị khóa
