@@ -193,5 +193,12 @@ namespace Model.Dao
                         });
             return model.ToList();
         }
+
+        public void UpdateImages(long contentId, string images)
+        {
+            var content = db.Contents.Find(contentId);
+            content.MoreImages = images;
+            db.SaveChanges();
+        }
     }
 }

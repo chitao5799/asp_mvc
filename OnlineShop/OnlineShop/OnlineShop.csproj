@@ -1374,6 +1374,7 @@
     <Content Include="Assets\Client\js\Controller\BaseController.js" />
     <Content Include="Assets\Client\js\Controller\CartController.js" />
     <Content Include="Assets\Client\js\Controller\ContactController.js" />
+    <Content Include="Assets\Client\js\Controller\ContentController.js" />
     <Content Include="Assets\Client\js\Controller\UserController.js" />
     <Content Include="Assets\Client\js\easing.js" />
     <Content Include="Assets\Client\js\easyResponsiveTabs.js" />

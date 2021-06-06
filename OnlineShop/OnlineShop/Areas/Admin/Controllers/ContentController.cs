@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using OnlineShop.Common;
+using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -74,6 +76,54 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             SetViewBag();
             return RedirectToAction("Index");
+        }
+
+        //ví dụ lưu nhiều ảnh kiểu xml trong db, thường áp dụng cho page chi tiết sản phẩm
+        public JsonResult SaveImages(long id, string images)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var listImages = serializer.Deserialize<List<string>>(images);
+
+            XElement xElement = new XElement("Images");
+
+            foreach(var item in listImages)
+            {
+                var subStringItem = item.Substring(22);//cắt 22 ký tự đầu tiên
+                xElement.Add(new XElement("Image", subStringItem));
+            }
+
+            ContentDao dao = new ContentDao();
+            try
+            {
+                dao.UpdateImages(id, xElement.ToString());
+                return Json(new
+                    {
+                        status = true
+                    });
+            }catch(Exception)
+            {
+                return Json(new
+                {
+                    status = false
+                });
+            }
+        }
+
+        public JsonResult LoadImage(long id)
+        {
+            ContentDao dao = new ContentDao();
+            var content = dao.GetByID(id);
+            var images = content.MoreImages;
+            XElement xImages = XElement.Parse(images);
+            List<string> listImagesReturn = new List<string>();
+            foreach(XElement element in xImages.Elements())
+            {
+                listImagesReturn.Add(element.Value);
+            }
+            return Json(new
+            {
+                data = listImagesReturn
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -10,7 +10,8 @@
     Danh sách tin tức
 }
 @section script{
-    
+
+    <script src="~/Assets/Client/js/Controller/ContentController.js"></script>
 }
 <div><a href="/Admin/Content/Create">Thêm tin tức</a></div>
 <div class="card mb-1">
@@ -53,8 +54,10 @@
                                         <img src="@item.Image" width="150" />
                                     </td>
                                     <td>@item.CreateDate</td>
-                                    <td><a href="#" class="btn-active" data-user_id="@item.ID">@(item.Status? "Kích hoạt" : "Khóa")</a></td>
+                                    <td><a href="#" class="btn-active" data-user_id="@item.ID">@(item.Status ? "Kích hoạt" : "Khóa")</a></td>
                                     <td>
+                                        <a href="#" data-id="@item.ID" class="btn-images">Quản lý ảnh</a>
+                                        ||
                                         <a href="/Admin/Content/Edit/@item.ID">Sửa</a>
                                         ||
                                         @Ajax.ActionLink("Xóa","Delete",new { @id = item.ID},new AjaxOptions
@@ -74,4 +77,35 @@
         </div>
     </div>
 
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="imagesManage">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Quản lý ảnh</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="imageList">
+
+                </div>
+                <div class="clear" style="clear:both;"></div>
+                <input type="button" id="btnChooseImage" class="btn btn-primary" value="chọn ảnh" />
+                <input type="hidden" id="hidContentID" value="0" />
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnSaveImages">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
 </div>

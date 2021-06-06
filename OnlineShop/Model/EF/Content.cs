@@ -57,5 +57,8 @@ namespace Model.EF
         public string Tags { get; set; }
 
         public string Language { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string MoreImages { get; set; }
     }
 }
